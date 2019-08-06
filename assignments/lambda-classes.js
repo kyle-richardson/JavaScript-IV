@@ -50,6 +50,20 @@ class Instructor extends Person {
     grade(obj, subject) {
         return `${obj.name} receives a perfect score on ${subject}!`
     }
+    changeGrade(obj) {
+        let num = (Math.floor(Math.random()*10)-5);
+        obj.grade += num;
+        if (num<0) {
+            return `Upon review by ${this.name}, ${obj.name}'s grade was lowered by ${-num} points and has a new grade of ${obj.grade}`;
+        }
+        else if (num==0) {
+            return `Upon review by ${this.name}, ${obj.name}'s grade stayed the same at ${obj.grade}`;
+        }
+        else {
+            return `Upon review by ${this.name}, ${obj.name}'s grade was raised by ${num} points and has a new grade of ${obj.grade}`;
+        }
+        
+    }
 }
 
 // #### Student
@@ -71,6 +85,7 @@ class Student extends Person {
         this.previousBackground = obj.previousBackground;
         this.className = obj.className;
         this.favSubjects = obj.favSubjects;
+        this.grade = obj.grade;
     }
     listSubjects() {
         let str = `${this.name}'s favorite subjects: `;
@@ -84,6 +99,14 @@ class Student extends Person {
     }
     springChallenge(subject) {
         return `${this.name} has begun sprint challenge on ${subject}.`;
+    }
+    graduate() {
+        if (this.grade>=70){
+            return `${this.name} graduates Lambda School with a final grade of ${this.grade}.  Congratulations!`;
+        }
+        else {
+            return `Unfortunately, ${this.name} finished Lambda School with a final grade of ${this.grade} and did not graduate.`;
+        }
     }
 }
 
@@ -110,6 +133,7 @@ class ProjectManager extends Instructor {
     debugsCode(student,subject) {
         return `${this.name} debugs ${student.name}'s code on ${subject}.`
     }
+    
 }
 
 const fred = new Instructor({
@@ -136,13 +160,17 @@ const kyle = new Student({
     age: 32,
     previousBackground: 'Apple, inc.',
     className: 'WebPT9',
-    favSubjects: ['a', 'b', 'c', 'd']
+    favSubjects: ['a', 'b', 'c', 'd'],
+    grade: 75
 });
 
 const michael = new ProjectManager({
     name: 'Michael',
     location: 'Washington',
     age: 33,
+    favLanguage: 'Javascript',
+    specialty: 'Logic',
+    catchPhrase: 'alright alright aliright',
     gradClassName: 'Web13',
     favInstructor: 'Pace'
 });
@@ -152,6 +180,9 @@ console.log(kyle.springChallenge('java'));
 console.log(michael.grade(kyle,'java'));
 console.log(bob.demo('python'));
 console.log(fred.speak());
+console.log(michael.catchPhrase);
+
+
 
 // #### Stretch Problem
 
@@ -160,3 +191,9 @@ console.log(fred.speak());
 // * Add a graduate method to a student.
 //   * This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
 //   * If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
+
+console.log(kyle.grade);
+console.log(michael.changeGrade(kyle));
+console.log(bob.changeGrade(kyle));
+console.log(fred.changeGrade(kyle));
+console.log(kyle.graduate());
