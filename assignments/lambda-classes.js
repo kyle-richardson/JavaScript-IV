@@ -51,7 +51,7 @@ class Instructor extends Person {
         return `${obj.name} receives a perfect score on ${subject}!`
     }
     changeGrade(obj) {
-        let num = (Math.floor(Math.random()*10)-5);
+        let num = (Math.floor(Math.random()*20)-10);
         obj.grade += num;
         if (num<0) {
             return `Upon review by ${this.name}, ${obj.name}'s grade was lowered by ${-num} points and has a new grade of ${obj.grade}`;
@@ -131,7 +131,7 @@ class ProjectManager extends Instructor {
         return `${this.name} announces to ${chan}, @channel standup time!`;
     }
     debugsCode(student,subject) {
-        return `${this.name} debugs ${student.name}'s code on ${subject}.`
+        return `${this.name} debugs ${student.name}'s code on ${subject}.`;
     }
     
 }
@@ -164,6 +164,16 @@ const kyle = new Student({
     grade: 75
 });
 
+const lauren = new Student({
+    name: 'Lauren',
+    location: 'Texas',
+    age: 31,
+    previousBackground: 'Medical Field, Bloodbank.',
+    className: 'WebPT9',
+    favSubjects: ['x', 'y', 'z', 'e'],
+    grade: 70
+});
+
 const michael = new ProjectManager({
     name: 'Michael',
     location: 'Washington',
@@ -173,6 +183,17 @@ const michael = new ProjectManager({
     catchPhrase: 'alright alright aliright',
     gradClassName: 'Web13',
     favInstructor: 'Pace'
+});
+
+const amy = new ProjectManager({
+    name: 'Amy',
+    location: 'Texas',
+    age: 25,
+    favLanguage: 'Less',
+    specialty: 'Web Design',
+    catchPhrase: 'goodness gracious',
+    gradClassName: 'Web10',
+    favInstructor: 'Ryan'
 });
 
 console.log(kyle.listSubjects());
@@ -192,8 +213,14 @@ console.log(michael.catchPhrase);
 //   * This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
 //   * If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
 
-console.log(kyle.grade);
+console.log(`${kyle.name}'s grade started at ${kyle.grade}`);
 console.log(michael.changeGrade(kyle));
 console.log(bob.changeGrade(kyle));
 console.log(fred.changeGrade(kyle));
 console.log(kyle.graduate());
+
+console.log(`${lauren.name}'s grade started at ${lauren.grade}`);
+console.log(michael.changeGrade(lauren));
+console.log(bob.changeGrade(lauren));
+console.log(fred.changeGrade(lauren));
+console.log(lauren.graduate());
