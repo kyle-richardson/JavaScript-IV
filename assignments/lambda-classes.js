@@ -51,7 +51,7 @@ class Instructor extends Person {
         return `${obj.name} receives a perfect score on ${subject}!`
     }
     changeGrade(obj) {
-        let num = (Math.floor(Math.random()*20)-10);
+        let num = (Math.floor(Math.random()*20)-9);
         obj.grade += num;
         if (num<0) {
             return `Upon review by ${this.name}, ${obj.name}'s grade was lowered by ${-num} points and has a new grade of ${obj.grade}`;
@@ -101,12 +101,15 @@ class Student extends Person {
         return `${this.name} has begun sprint challenge on ${subject}.`;
     }
     graduate() {
-        if (this.grade>=70){
-            return `${this.name} graduates Lambda School with a final grade of ${this.grade}.  Congratulations!`;
+        if(this.grade <70){
+            console.log(`Unfortunately, ${this.name} finished Lambda School with a final grade of ${this.grade} and cannot graduate yet.  Let's get back to work on those assignments!`);
+            let rand = 0;
+            while (this.grade <70){
+                rand = Math.floor(Math.random()*4);
+                console.log(graders[rand].changeGrade(this));
+            }
         }
-        else {
-            return `Unfortunately, ${this.name} finished Lambda School with a final grade of ${this.grade} and did not graduate.`;
-        }
+        return `${this.name} graduates Lambda School with a final grade of ${this.grade}.  Congratulations!`;
     }
 }
 
@@ -161,7 +164,7 @@ const kyle = new Student({
     previousBackground: 'Apple, inc.',
     className: 'WebPT9',
     favSubjects: ['a', 'b', 'c', 'd'],
-    grade: 75
+    grade: 60
 });
 
 const lauren = new Student({
@@ -171,7 +174,7 @@ const lauren = new Student({
     previousBackground: 'Medical Field, Bloodbank.',
     className: 'WebPT9',
     favSubjects: ['x', 'y', 'z', 'e'],
-    grade: 70
+    grade: 60
 });
 
 const michael = new ProjectManager({
@@ -196,12 +199,18 @@ const amy = new ProjectManager({
     favInstructor: 'Ryan'
 });
 
-console.log(kyle.listSubjects());
-console.log(kyle.springChallenge('java'));
-console.log(michael.grade(kyle,'java'));
-console.log(bob.demo('python'));
-console.log(fred.speak());
-console.log(michael.catchPhrase);
+const graders = [];
+graders.push(fred);
+graders.push(bob);
+graders.push(michael);
+graders.push(amy);
+
+// console.log(kyle.listSubjects());
+// console.log(kyle.springChallenge('java'));
+// console.log(michael.grade(kyle,'java'));
+// console.log(bob.demo('python'));
+// console.log(fred.speak());
+// console.log(michael.catchPhrase);
 
 
 
